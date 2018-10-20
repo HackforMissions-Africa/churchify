@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Churchify</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+
+<style>
+#map {
+    position: fixed;
+    width:70%;
+}
+#features {
+    width: 30%;
+    margin-left: 70%;
+    font-family: sans-serif;
+    overflow-y: scroll;
+    background-color: #fafafa;
+}
+section {
+    padding:  25px 50px;
+    line-height: 25px;
+    border-bottom: 1px solid #ddd;
+    opacity: 0.25;
+    font-size: 13px;
+}
+section.active {
+    opacity: 1;
+}
+section:last-child {
+    border-bottom: none;
+    margin-bottom: 200px;
+}
+
+#img {
+    width:100%;
+    height: 200px;
+}
+
+#menu {
+        position: fixed;
+        background: #fff;
+        padding: 10px;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+</style>
+
+<div id='map'></div>
+
+<div id='menu'>
+    <input id='basic' type='radio' name='rtoggle' value='basic' checked='checked'>
+    <label for='basic'>basic</label>
+    <input id='satellite' type='radio' name='rtoggle' value='satellite'>
+    <label for='satellite'>satellite</label>
+</div>
+
+
+<div id='features'>
+    <section id='charismatic' class='active'>
+        <h3>Uganda Charismatic Renewal</h3>
+        <p>Uganda Catholic Charismatic Renewal is located in Kampala, Uganda. Company is working in Associations business activities.
+        <img src="cm.jpg" alt="Uganda Charismatic Renewal" id="img">
+        </p>
+    </section>
+    <section id='vcc'>
+        <h3>Victory City Church Central</h3>
+        <p>Victory City Church is next to Ntinda and is located in Central Region, Uganda. Victory City Church has a length of 0.12 kilometres.
+        <ul>
+            <li>amenity: place_of_worship</li>
+            <li>building: yes</li>
+        </ul>
+        <img src="vcc.jpg" alt="Victory City Church Central" id="img">
+        </p>
+    </section>
+    <section id='kakumba'>
+        <h3>St. Kakumba Chapel</h3>
+        <p>St. Kakumba Chapel is next to Kyambogo University and is located in Uganda
+            <ul>
+                <li>amenity: place_of_worship</li>
+                <li>religion: christian</li>
+            </ul>
+            
+        </p>
+        <img src="kakumba.jpg" alt="St Kakumba Chapel" id="img">
+    </section>
+    <section id='stjames'>
+    <h3>St. James Catholic Parish Butabika</h3>
+        <p>St. James Catholic Parish Butabika is next to Luzira and is located in Kampala District, Central Region, Uganda
+            <ul>
+                <li>amenity: place_of_worship</li>
+                <li>religion: christian</li>
+            </ul>
+        </p>
+        <img src="james.jpg" alt="St James Catholic Parish Butabika" id="img">
+    </section>
+
+    <section id='miracle'>
+    <h3>New Miracle Center church Kazo</h3>
+        <p>Located in Kazo, Kampala, the church is led by Pastor Elijah Mugerwa
+            <ul>
+                <li><a href="http://newmiraclecentrechurch.org">Website</a></li>
+                <li>Contact:  (+256) 782-300379 | (+256) 774-189897 | (+256) 772-882434</li>
+            </ul>
+        </p>
+        <img src="kazo.jpg" alt="New Miracle Center church Kazo" id="img">
+    </section>
+    <section id='miraclecathedral'>
+    <h3>Miracle Center Cathedral</h3>
+        <p>The Miracle Centre Cathedral is a Pentecostal megachurch in Kampala, the capital of Uganda. The church's Senior Pastor is Robert Kayanja. In 2017, the attendance is 15,000 people. The church is founded in 1991 by Robert Kayanja. In 2002, the Cathedral was built at a cost of US$7 million, half of which was donated by a South Korean woman who was healed after Kayanja prayed for her. The building, in the Rubaga division of Kampala, has a capacity of 10,500, and the church claims to be the biggest auditorium in East Africa
+            <br>
+            <a href="https://www.robertkayanjaministries.org">Website</a>
+        </p>
+        <img src="Kayanja.jpg" alt="Miracle Center Cathedral" id="img">
+    </section>
+    
+</div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiaGlsbHM5NSIsImEiOiJjajI5YjM4YjQwMDR5MzNwam0yYmx0M2d1In0.S-Ch7EFnBYY76pAAVjUK4g';
+
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/hills95/cjngls1d103of2rqwuyb1piah',
+    center: [32.5813539, 0.3177137],
+    zoom: 15.5,
+    bearing: 27,
+    pitch: 45
+});
+
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl());
+
+
+var chapters = {
+    'charismatic': {
+        bearing: 27,
+        center: [32.5695638, 0.3172683],
+        zoom: 15.5,
+        pitch: 20
+    },
+    'vcc': {
+        duration: 6000,
+        center: [32.5751588, 0.3061313],
+        bearing: 150,
+        zoom: 15,
+        pitch: 0
+    },
+    'kakumba': {
+        duration: 6000,
+        center: [32.6288102, 0.3475523],
+        bearing: 150,
+        zoom: 15,
+        pitch: 0
+    },
+    'stjames': {
+        duration: 6000,
+        center: [32.6520673, 0.3096512],
+        bearing: 150,
+        zoom: 15,
+        pitch: 0
+    },
+    'miracle': {
+        duration: 6000,
+        center: [32.5555908, 0.3607789],
+        bearing: 150,
+        zoom: 15,
+        pitch: 0
+    },
+    'miraclecathedral': {
+        duration: 6000,
+        center: [32.5606800, 0.3027673],
+        bearing: 150,
+        zoom: 15,
+        pitch: 0
+    }
+};
+
+// On every scroll event, check which element is on screen
+window.onscroll = function() {
+    var chapterNames = Object.keys(chapters);
+    for (var i = 0; i < chapterNames.length; i++) {
+        var chapterName = chapterNames[i];
+        if (isElementOnScreen(chapterName)) {
+            setActiveChapter(chapterName);
+            break;
+        }
+    }
+};
+
+var activeChapterName = 'charismatic';
+function setActiveChapter(chapterName) {
+    if (chapterName === activeChapterName) return;
+
+    map.flyTo(chapters[chapterName]);
+
+    document.getElementById(chapterName).setAttribute('class', 'active');
+    document.getElementById(activeChapterName).setAttribute('class', '');
+
+    activeChapterName = chapterName;
+}
+
+function isElementOnScreen(id) {
+    var element = document.getElementById(id);
+    var bounds = element.getBoundingClientRect();
+    return bounds.top < window.innerHeight && bounds.bottom > 0;
+}
+
+
+var layerList = document.getElementById('menu');
+var inputs = layerList.getElementsByTagName('input');
+
+function switchLayer(layer) {
+    var layerId = layer.target.id;
+    map.setStyle('mapbox://styles/hills95/cjngls1d103of2rqwuyb1piah');
+}
+function switchLayer1(layer) {
+    var layerId = layer.target.id;
+    map.setStyle('mapbox://styles/hills95/cjnh8g2kv1aky2snyo0zza7qt');
+
+}
+    inputs[0].onclick = switchLayer;
+     inputs[1].onclick = switchLayer1;
+
+
+
+</script>
+
+</body>
+</html>
